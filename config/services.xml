@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd"
+>
+    <services>
+        <service id="Http\Discovery\Psr17Factory"/>
+
+        <service id="Psr\Http\Message\RequestFactoryInterface" alias="Http\Discovery\Psr17Factory"/>
+        <service id="Psr\Http\Message\ResponseFactoryInterface" alias="Http\Discovery\Psr17Factory"/>
+        <service id="Psr\Http\Message\ServerRequestFactoryInterface" alias="Http\Discovery\Psr17Factory"/>
+        <service id="Psr\Http\Message\StreamFactoryInterface" alias="Http\Discovery\Psr17Factory"/>
+        <service id="Psr\Http\Message\UploadedFileFactoryInterface" alias="Http\Discovery\Psr17Factory"/>
+        <service id="Psr\Http\Message\UriFactoryInterface" alias="Http\Discovery\Psr17Factory"/>
+
+        <service id="Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory"/>
+
+        <service id="Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface" alias="Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory"/>
+
+        <service id="Symfony\Bridge\PsrHttpMessage\EventListener\PsrResponseListener">
+            <argument type="service" id="Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory"/>
+            <tag name="kernel.event_listener" event="kernel.view"/>
+        </service>
+
+        <service id="Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory"/>
+
+        <service id="Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface" alias="Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory" />
+
+        <service id="Symfony\Bridge\PsrHttpMessage\ArgumentValueResolver\PsrServerRequestResolver">
+            <argument type="service" id="Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory"/>
+            <tag name="controller.argument_value_resolver"/>
+        </service>
+
+        <service id="JsonApi\ServerBundle\EventSubscriber\ExceptionSubscriber">
+            <argument>%env(APP_ENV)%</argument>
+            <argument>%env(APP_DEBUG)%</argument>
+            <argument type="service" id="Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface"/>
+            <tag name="kernel.event_listener" event="kernel.exception"/>
+        </service>
+    </services>
+</container>

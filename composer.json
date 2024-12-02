@@ -1,0 +1,41 @@
+{
+    "name": "gilsegura/json-api-server-bundle",
+    "description": "This is a bundle integrating the [json-api-server](https://github.com/gilsegura/json-api-server) library into Symfony applications.",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.3",
+        "gilsegura/assert": "dev-main",
+        "gilsegura/json-api-server": "dev-main",
+        "gilsegura/psr-server": "dev-main",
+        "gilsegura/psr-validator": "dev-main",
+        "gilsegura/serializer": "dev-main",
+        "symfony/framework-bundle": "^7.1",
+        "symfony/psr-http-message-bridge": "^7.1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3",
+        "matthiasnoback/symfony-dependency-injection-test": "^6",
+        "phpstan/phpstan": "^1",
+        "phpstan/phpstan-symfony": "^1",
+        "phpunit/phpunit": "^11",
+        "rector/rector": "^1"
+    },
+    "autoload": {
+        "psr-4": {
+            "JsonApi\\ServerBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JsonApi\\ServerBundle\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "allow-plugins": true
+    }
+}
